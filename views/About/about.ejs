@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Luxora</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold text-blue-600">Luxora</a>
+      <nav>
+        <a href="/" class="mx-3 text-gray-700 hover:text-blue-600">Home</a>
+        <a href="/about" class="mx-3 text-blue-600 font-semibold">About</a>
+        <a href="/contact" class="mx-3 text-gray-700 hover:text-blue-600">Contact</a>
+        <a href="/login" class="mx-3 text-gray-700 hover:text-blue-600">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-blue-600 text-white py-20">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">About Luxora</h1>
+      <p class="text-lg md:text-xl">Connecting travelers with the best stays around the world, with ease and trust.</p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb21001?auto=format&fit=crop&w=1000&q=80" 
+           alt="About Luxora" class="rounded-2xl shadow-lg">
+    </div>
+    <div>
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Mission</h2>
+      <p class="text-gray-600 mb-6">
+        At Luxora, our mission is to make travel simple and enjoyable by connecting travelers with verified
+        hosts and quality accommodations. Whether you’re looking for luxury stays or cozy apartments, we have
+        you covered.
+      </p>
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Why Choose Us?</h2>
+      <ul class="list-disc list-inside text-gray-600 space-y-2">
+        <li>Verified properties and hosts for a safe stay.</li>
+        <li>Easy booking with flexible payment options.</li>
+        <li>Personalized recommendations for your trips.</li>
+        <li>24/7 customer support for all your needs.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="bg-gray-50 py-16">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-12">Meet Our Team</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="w-32 h-32 mx-auto rounded-full mb-4">
+          <h3 class="font-bold text-lg">John Doe</h3>
+          <p class="text-gray-500">Founder & CEO</p>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="w-32 h-32 mx-auto rounded-full mb-4">
+          <h3 class="font-bold text-lg">Jane Smith</h3>
+          <p class="text-gray-500">Head of Operations</p>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+          <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Team Member" class="w-32 h-32 mx-auto rounded-full mb-4">
+          <h3 class="font-bold text-lg">Michael Lee</h3>
+          <p class="text-gray-500">Lead Developer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6 text-center">
+    <p>© <%= new Date().getFullYear() %> Luxora. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

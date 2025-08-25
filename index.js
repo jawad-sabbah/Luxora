@@ -8,9 +8,12 @@ app.set('view engine','ejs')
 
 
 const authRoutes=require('./Routes/authRoutes')
+const contactRoutes=require('./Routes/contactRoutes')
+const aboutRoutes=require('./Routes/aboutRoutes')
 
 app.use('/',authRoutes)
-
+app.use('/',contactRoutes)
+app.use('/',aboutRoutes)
 
 app.get('/',(req,res)=>{
   res.render('home')
