@@ -6,6 +6,12 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.set('view engine','ejs')
 
+
+const authRoutes=require('./Routes/authRoutes')
+
+app.use('/',authRoutes)
+
+
 app.get('/',(req,res)=>{
   res.render('home')
 })
