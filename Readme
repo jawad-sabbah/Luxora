@@ -1,0 +1,45 @@
+🔹 1. Core Features
+
+Here are the typical features a hotel booking website should have:
+
+Guest Features
+
+🏨 Browse hotels & rooms (search by location, date, price, amenities).
+
+📅 Check availability of rooms.
+
+🛏️ View room details (photos, price, amenities, reviews).
+
+📝 Register & login (user account).
+
+❤️ Save favorites (wishlist).
+
+💳 Book rooms & make payments.
+
+⭐ Add reviews after checkout.
+
+📖 View booking history.
+
+Host/Admin Features
+
+👨‍💼 Host registration & verification.
+
+🏠 Add/manage properties (hotels, apartments).
+
+🚪 Add/manage rooms (availability, pricing, photos).
+
+📊 Dashboard with stats (bookings, revenue).
+
+🔄 Approve/Reject bookings.
+
+🧾 Manage payments & refunds.
+
+📝 Manage reviews.
+
+Super Admin
+
+👑 Manage all users & hosts.
+
+🚫 Block/unblock accounts.
+
+📊 Full site analytics.
