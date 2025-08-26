@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotels - Luxora</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold text-blue-600">Luxora</a>
+      <nav>
+        <a href="/" class="mx-3 text-gray-700 hover:text-blue-600">Home</a>
+        <a href="/hotels" class="mx-3 text-blue-600 font-semibold">Hotels</a>
+        <a href="/about" class="mx-3 text-gray-700 hover:text-blue-600">About</a>
+        <a href="/contact" class="mx-3 text-gray-700 hover:text-blue-600">Contact</a>
+        <a href="/login" class="mx-3 text-gray-700 hover:text-blue-600">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-blue-600 text-white py-16 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold">Find Your Perfect Stay</h1>
+    <p class="text-lg mt-3">Browse top-rated hotels with comfort and style</p>
+  </section>
+
+  <!-- Hotels Grid -->
+  <section class="max-w-7xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <% hotels.forEach(hotel => { %>
+        <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
+          <img src="<%= hotel.image %>" alt="<%= hotel.name %>" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h2 class="text-xl font-semibold text-gray-800"><%= hotel.name %></h2>
+            <p class="text-gray-600 text-sm mb-2"><%= hotel.location %></p>
+            <p class="text-blue-600 font-bold text-lg mb-3">$<%= hotel.price %> / night</p>
+            <a href="/hotels/<%= hotel.id %>" 
+               class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+              View Details
+            </a>
+          </div>
+        </div>
+      <% }) %>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white shadow mt-auto">
+    <div class="max-w-7xl mx-auto px-6 py-6 text-center text-gray-500 text-sm">
+      © <%= new Date().getFullYear() %> Luxora. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
