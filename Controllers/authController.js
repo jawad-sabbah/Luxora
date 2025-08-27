@@ -21,7 +21,7 @@ exports.showRegister=(req,res)=>{
 
 exports.registerUser= async(req,res)=>{
 
-    const {name,email,password,role}=req.body
+    const {name,email,password}=req.body
 
    try {
      
@@ -31,7 +31,7 @@ exports.registerUser= async(req,res)=>{
      }
 
      const hashedPassword=await bcrypt.hash(password,10);
-     await userModel.createUser(name,email,hashedPassword,role);
+     await userModel.createUser(name,email,hashedPassword);
 
      res.redirect('/Hotels');
 

@@ -1,13 +1,13 @@
 const db = require('../db');
 
 // Create user
-exports.createUser = async (username, email, password, role) => {
+exports.createUser = async (username, email, password) => {
   const query = `
-    INSERT INTO users (name, email, hashed_password, role)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO users (name, email, hashed_password)
+    VALUES ($1, $2, $3)
     RETURNING *;
   `;
-  const values = [username, email, password, role];
+  const values = [username, email, password];
   const result = await db.query(query, values);
   return result.rows[0];
 };
