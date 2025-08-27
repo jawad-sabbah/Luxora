@@ -13,11 +13,13 @@ const authRoutes=require('./Routes/authRoutes')
 const contactRoutes=require('./Routes/contactRoutes')
 const aboutRoutes=require('./Routes/aboutRoutes')
 const hotelRoutes=require('./Routes/hotelsRoutes')
+const hostRoutes=require('./Routes/hostRoutes')
 
 app.use('/',authRoutes)
 app.use('/',contactRoutes)
 app.use('/',aboutRoutes)
 app.use('/hotels',hotelRoutes)
+app.use('/',hostRoutes)
 
 app.get('/',(req,res)=>{
   res.render('home')
