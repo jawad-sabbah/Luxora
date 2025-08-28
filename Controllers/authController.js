@@ -71,12 +71,13 @@ exports.loginUser= async(req,res)=>{
 } 
 
 exports.logoutUser=(req,res)=>{ 
+ 
   req.session.destroy(err => {
     if (err) {
       console.log(err);
       return res.redirect('/Hotels');
     }
-    res.clearCookie('connect.sid');
+     res.clearCookie('connect.sid', { path: '/' });
     res.redirect('/');
   })
 }

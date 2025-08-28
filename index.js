@@ -20,6 +20,17 @@ app.use(session({
    }
 }));
 
+
+
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Surrogate-Control', 'no-store');
+  next();
+});
+
+
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.set('view engine','ejs')
@@ -42,6 +53,11 @@ app.use('/',hostRoutes)
 app.get('/',(req,res)=>{
   res.render('home',{username: req.session.user ? req.session.user.email : null }); 
 })
+
+app.get('/check-session', (req, res) => {
+  res.json({ loggedIn: !!req.session.user });
+});
+
 
 app.listen(port,()=>{
   console.log(` app listening at http://localhost:${port}`)
