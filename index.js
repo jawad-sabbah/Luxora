@@ -43,15 +43,17 @@ const contactRoutes=require('./Routes/contactRoutes')
 const aboutRoutes=require('./Routes/aboutRoutes')
 const hotelRoutes=require('./Routes/hotelsRoutes')
 const hostRoutes=require('./Routes/hostRoutes')
+const adminRoutes=require('./Routes/adminRoutes')
 
 app.use('/',authRoutes)
 app.use('/',contactRoutes)
 app.use('/',aboutRoutes)
 app.use('/hotels',hotelRoutes)
 app.use('/',hostRoutes)
+app.use('/',adminRoutes)
 
 app.get('/',(req,res)=>{
-  res.render('home',{username: req.session.user ? req.session.user.email : null }); 
+  res.render('home',{user: req.session.user || null }); 
 })
 
 app.get('/check-session', (req, res) => {

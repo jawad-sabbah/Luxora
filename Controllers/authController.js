@@ -58,7 +58,9 @@ exports.loginUser= async(req,res)=>{
 
      req.session.user={
       id: user.user_id,
-      email: user.email
+      name: user.name,
+      email: user.email,
+      role: user.role
      }
      console.log(req.session.user);
      

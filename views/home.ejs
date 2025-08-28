@@ -9,23 +9,27 @@
 <body class="bg-gray-100 text-gray-900">
 
   <!-- Navbar -->
-  <header class="bg-white shadow-md">
-    <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
-      <a href="/" class="text-2xl font-bold text-blue-600">Luxora</a>
-      <nav class="space-x-6 flex items-center">
-        <a href="/" class="hover:text-blue-600">Home</a>
-        <a href="/hotels" class="hover:text-blue-600">Hotels</a>
-        <a href="/about" class="hover:text-blue-600">About</a>
-        <a href="/contact" class="hover:text-blue-600">Contact</a>
+<header class="bg-white shadow-md">
+  <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+    <a href="/" class="text-2xl font-bold text-blue-600">Luxora</a>
+    <nav class="space-x-6 flex items-center">
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <a href="/hotels" class="hover:text-blue-600">Hotels</a>
+      <a href="/about" class="hover:text-blue-600">About</a>
+      <a href="/contact" class="hover:text-blue-600">Contact</a>
 
-        <% if (typeof username !== 'undefined' && username) { %>
-          <a href="/logout" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Logout</a>
-        <% } else { %>
-          <a href="/login" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Login</a>
+      <% if (user) { %>
+        <% if (user.role === 'admin') { %>
+          <a href="/admin/dashboard" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Dashboard</a>
         <% } %>
-      </nav>
-    </div>
-  </header>
+        <a href="/logout" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Logout</a>
+      <% } else { %>
+        <a href="/login" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Login</a>
+      <% } %>
+    </nav>
+  </div>
+</header>
+
 
   <!-- Hero Section -->
   <section class="relative bg-cover bg-center h-[500px]" style="background-image: url('/images/nopparuj-lamaikul-ArEO2zqArUc-unsplash.jpg');">

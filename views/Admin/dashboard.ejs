@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Admin Dashboard - Luxora</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white shadow-lg flex flex-col">
+    <div class="p-6 text-center font-bold text-xl text-blue-600 border-b">
+      Luxora Admin
+    </div>
+    <nav class="flex-1 px-4 py-6 space-y-2">
+      <a href="/admin/dashboard" class="block px-4 py-2 rounded hover:bg-blue-100 font-semibold text-gray-700">Dashboard</a>
+      <a href="/admin/users" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Users</a>
+      <a href="/admin/hosts" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Hosts</a>
+      <a href="/admin/properties" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Properties</a>
+      <a href="/admin/bookings" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Bookings</a>
+      <a href="/logout" class="block px-4 py-2 rounded hover:bg-red-100 text-red-600 font-semibold">Logout</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+    <!-- Back to Home -->
+<a href="/" class="inline-flex items-center text-gray-600 hover:text-blue-600 mb-4">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0L3.586 10l4.707-4.707a1 1 0 011.414 1.414L6.414 10l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+  </svg>
+  Back to Home
+</a>
+
+
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Super Admin Dashboard</h1>
+
+    
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white shadow rounded-lg p-6">
+        <p class="text-gray-500">Total Users</p>
+        <p class="text-2xl font-bold text-blue-600"><%= stats.totalUsers %></p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-6">
+        <p class="text-gray-500">Total Hosts</p>
+        <p class="text-2xl font-bold text-blue-600"><%= stats.totalHosts %></p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-6">
+        <p class="text-gray-500">Total Bookings</p>
+        <p class="text-2xl font-bold text-blue-600"><%= stats.totalBookings %></p>
+      </div>
+    </div>
+
+    <!-- Recent Bookings Table -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Recent Bookings</h2>
+      <table class="min-w-full border divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-2 text-left text-gray-600">Booking ID</th>
+            <th class="px-4 py-2 text-left text-gray-600">User</th>
+            <th class="px-4 py-2 text-left text-gray-600">Hotel</th>
+            <th class="px-4 py-2 text-left text-gray-600">Room</th>
+            <th class="px-4 py-2 text-left text-gray-600">Status</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <% recentBookings.forEach(booking => { %>
+            <tr>
+              <td class="px-4 py-2"><%= booking.id %></td>
+              <td class="px-4 py-2"><%= booking.user_name %></td>
+              <td class="px-4 py-2"><%= booking.hotel_name %></td>
+              <td class="px-4 py-2"><%= booking.room_type %></td>
+              <td class="px-4 py-2">
+                <% if (booking.status === 'confirmed') { %>
+                  <span class="text-green-600 font-semibold">Confirmed</span>
+                <% } else if (booking.status === 'pending') { %>
+                  <span class="text-yellow-600 font-semibold">Pending</span>
+                <% } else { %>
+                  <span class="text-red-600 font-semibold"><%= booking.status %></span>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</body>
+</html>
