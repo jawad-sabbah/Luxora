@@ -12,12 +12,18 @@
   <header class="bg-white shadow">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <a href="/" class="text-2xl font-bold text-blue-600">Luxora</a>
-      <nav>
+      <nav class="flex items-center">
         <a href="/" class="mx-3 text-gray-700 hover:text-blue-600">Home</a>
         <a href="/hotels" class="mx-3 text-blue-600 font-semibold">Hotels</a>
         <a href="/about" class="mx-3 text-gray-700 hover:text-blue-600">About</a>
         <a href="/contact" class="mx-3 text-gray-700 hover:text-blue-600">Contact</a>
-        <a href="/login" class="mx-3 text-gray-700 hover:text-blue-600">Login</a>
+
+        <% if (typeof username !== 'undefined' && username) { %>
+        
+          <a href="/logout" class="mx-3 text-red-600 hover:underline font-semibold">Logout</a>
+        <% } else { %>
+          <a href="/login" class="mx-3 text-gray-700 hover:text-blue-600">Login</a>
+        <% } %>
       </nav>
     </div>
   </header>
@@ -31,7 +37,6 @@
   <!-- Hotels Grid -->
   <section class="max-w-7xl mx-auto px-6 py-16">
     <div class="grid md:grid-cols-3 gap-8">
-
       <% hotels.forEach(hotel => { %>
         <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
           <img src="<%= hotel.image %>" alt="<%= hotel.name %>" class="w-full h-48 object-cover">
@@ -46,7 +51,6 @@
           </div>
         </div>
       <% }) %>
-
     </div>
   </section>
 

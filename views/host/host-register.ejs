@@ -17,9 +17,8 @@
         <a href="/hotels" class="mx-3 text-gray-700 hover:text-blue-600">Hotels</a>
         <a href="/about" class="mx-3 text-gray-700 hover:text-blue-600">About</a>
         <a href="/contact" class="mx-3 text-gray-700 hover:text-blue-600">Contact</a>
-        <% if (user) { %>
-          <span class="mx-3 text-gray-700">Hi, <%= user.name %></span>
-          <a href="/logout" class="mx-3 text-gray-700 hover:text-red-600">Logout</a>
+        <% if (demoData.user) { %>
+          <a href="/logout" class="mx-3 text-red-600 hover:underline font-semibold">Logout</a>
         <% } else { %>
           <a href="/login" class="mx-3 text-gray-700 hover:text-blue-600">Login</a>
         <% } %>
@@ -32,7 +31,7 @@
     <div class="max-w-2xl mx-auto mt-12 bg-white shadow-lg rounded-xl p-10">
       <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Register as a Host</h1>
 
-      <% if (error) { %>
+      <% if (demoData.error) { %>
         <p class="bg-red-100 text-red-600 p-3 rounded mb-4"><%= error %></p>
       <% } %>
 

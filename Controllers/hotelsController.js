@@ -9,7 +9,7 @@ const dummyData=[
 
 exports.getAllHotels=(req,res)=>{
   try {
-      res.render('Hotels/hotels', { hotels: dummyData })
+      res.render('Hotels/hotels', { hotels: dummyData ,username: req.session.user ? req.session.user.email : null });
   } catch (error) {
     console.log(error);
   }
