@@ -85,3 +85,128 @@ exports.showBookings=(req,res)=>{
     console.log(error);
   } 
 }
+
+
+
+
+
+exports.showVerifyHosts=(req,res)=>{
+  try {
+    
+   res.render('admin/verify-host',{hosts})
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+exports.showConfirmVerifyHost=async (req,res) => {
+  try {
+    const host = hosts.find(h => h.id === parseInt(req.params.id));
+    if (!host) {
+      return res.status(404).send('Host not found');
+    }
+    res.render('admin/confirm-verify',{ user: req.session.user || null, host });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+exports.verifyHost=async (req,res) => {
+  try {
+    res.redirect('/admin/hosts');
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+exports.cancelHostVerification=async (req,res) => {
+ 
+  try {
+    res.redirect('/admin/hosts');
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+
+
+exports.showEditHost=async (req,res) => {
+
+ try {
+   const host = hosts.find(h => h.id === parseInt(req.params.id));
+   if (!host) {
+     return res.status(404).send('Host not found');
+   }
+   res.render('admin/edit-host',{ user: req.session.user || null , host });
+ } catch (error) {
+  console.log(error);
+ }
+}
+
+
+exports.editHost=async (req,res) => {
+ 
+  try {
+    res.redirect('/admin/hosts');
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+exports.showEditUser=async (req,res) => {
+  try {
+    const user = users.find(u => u.id === parseInt(req.params.id));
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    res.render('admin/edit-user',{ user: req.session.user || null, user });
+  } catch (error) {
+     console.log(error);
+  }
+}
+
+exports.editUser=async (req,res) => {
+  try {
+    res.redirect('/admin/users');
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+const user=[{
+   id: 1,
+   name: 'Alice Johnson',
+   email: 'alice@example.com',
+   role: 'user',
+   status: 'active'
+}]
+
+exports.showViewUser=async (req,res) => {
+
+  try {
+    res.render('admin/view-user', {  user });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+
+exports.showViewProperty=async (req,res) => {
+
+  try {
+    const property = properties.find(p => p.id === parseInt(req.params.id));
+    if (!property) {
+      return res.status(404).send('Property not found');
+    }
+    res.render('admin/view-property', { user: req.session.user || null, property });
+  } catch (error) {
+    console.log(error);
+  }
+
+}

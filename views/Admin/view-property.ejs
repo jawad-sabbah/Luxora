@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Property - Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+  <!-- Back Button -->
+  <a href="/admin/properties" class="inline-block mb-4 text-blue-600 hover:underline">← Back to Properties</a>
+
+  <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
+    <h1 class="text-2xl font-bold mb-6">Property Details</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Property ID -->
+      <div>
+        <label class="block text-gray-700 font-medium">Property ID</label>
+        <p class="px-4 py-2 border rounded bg-gray-100"><%= property.id %></p>
+      </div>
+
+      <!-- Host ID -->
+      <div>
+        <label class="block text-gray-700 font-medium">Host ID</label>
+        <p class="px-4 py-2 border rounded bg-gray-50"><%= property.host_id %></p>
+      </div>
+
+      <!-- Name -->
+      <div class="md:col-span-2">
+        <label class="block text-gray-700 font-medium">Name</label>
+        <p class="px-4 py-2 border rounded bg-gray-50"><%= property.name %></p>
+      </div>
+
+      <!-- Description -->
+      <div class="md:col-span-2">
+        <label class="block text-gray-700 font-medium">Description</label>
+        <p class="px-4 py-2 border rounded bg-gray-50"><%= property.description %></p>
+      </div>
+
+      <!-- Location -->
+      <div>
+        <label class="block text-gray-700 font-medium">Location</label>
+        <p class="px-4 py-2 border rounded bg-gray-50"><%= property.location %></p>
+      </div>
+
+      <!-- Price -->
+      <div>
+        <label class="block text-gray-700 font-medium">Price (per night)</label>
+        <p class="px-4 py-2 border rounded bg-gray-50">$<%= property.price %></p>
+      </div>
+
+      <!-- Status -->
+      <div>
+        <label class="block text-gray-700 font-medium">Status</label>
+        <p class="px-4 py-2 border rounded 
+           <%= property.status === 'active' ? 'text-green-600' 
+              : property.status === 'inactive' ? 'text-yellow-600' 
+              : 'text-red-600' %>">
+          <%= property.status %>
+        </p>
+      </div>
+
+     
+
+    </div>
+
+    <!-- Back Button -->
+    <div class="mt-6 flex justify-end">
+      <a href="/admin/properties" 
+         class="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
+        Back
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Host - Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+  <!-- Back Button -->
+  <a href="/admin/hosts" class="inline-block mb-4 text-blue-600 hover:underline">← Back to Hosts</a>
+
+  <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6">
+    <h1 class="text-2xl font-bold mb-6">Edit Host</h1>
+
+    <form action="/admin/hosts/<%= host.id %>/edit" method="POST" class="space-y-4">
+      <!-- Host ID (readonly) -->
+      <div>
+        <label class="block text-gray-700 font-medium">Host ID</label>
+        <input type="text" value="<%= host.id %>" readonly 
+               class="w-full border px-4 py-2 rounded bg-gray-100">
+      </div>
+
+      <!-- Name -->
+      <div>
+        <label class="block text-gray-700 font-medium">Name</label>
+        <input type="text" name="name" value="<%= host.name %>" 
+               class="w-full border px-4 py-2 rounded" required>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-gray-700 font-medium">Email</label>
+        <input type="email" name="email" value="<%= host.email %>" 
+               class="w-full border px-4 py-2 rounded" required>
+      </div>
+
+      <!-- Payout Email -->
+      <div>
+        <label class="block text-gray-700 font-medium">Payout Email (PayPal / Stripe)</label>
+        <input type="email" name="payout_email" value="<%= host.payout_email %>" 
+               class="w-full border px-4 py-2 rounded">
+      </div>
+
+      <!-- Bank Account -->
+      <div>
+        <label class="block text-gray-700 font-medium">Bank Account</label>
+        <input type="text" name="bank_account" value="<%= host.bank_account %>" 
+               class="w-full border px-4 py-2 rounded">
+      </div>
+
+      <!-- Phone Number -->
+      <div>
+        <label class="block text-gray-700 font-medium">Phone Number</label>
+        <input type="text" name="phone_number" value="<%= host.phone_number %>" 
+               class="w-full border px-4 py-2 rounded">
+      </div>
+
+      <!-- Verification -->
+      <div>
+        <label class="block text-gray-700 font-medium">Verification Status</label>
+        <select name="verified" class="w-full border px-4 py-2 rounded">
+          <option value="false" <%= !host.verified ? 'selected' : '' %>>Pending</option>
+          <option value="true" <%= host.verified ? 'selected' : '' %>>Verified</option>
+        </select>
+      </div>
+
+      <!-- Submit -->
+      <div class="flex justify-end">
+        <button type="submit" 
+                class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

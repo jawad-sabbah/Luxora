@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verify Host</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Verify Host</h1>
+
+    <p class="mb-4 text-gray-600">Are you sure you want to verify this host?</p>
+
+    <div class="mb-6">
+      <p><span class="font-semibold">Name:</span> <%= host.name %></p>
+      <p><span class="font-semibold">Email:</span> <%= host.email %></p>
+      <p><span class="font-semibold">Payout Email:</span> <%= host.payout_email %></p>
+      <p><span class="font-semibold">Bank Account:</span> <%= host.bank_account %></p>
+    </div>
+
+    <form method="POST" action="/admin/hosts/<%= host.id %>/verify" class="flex space-x-4">
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+        Yes, Verify
+      </button>
+      <a href="/admin/hosts" class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">
+        Cancel
+      </a>
+    </form>
+  </div>
+</body>
+</html>
