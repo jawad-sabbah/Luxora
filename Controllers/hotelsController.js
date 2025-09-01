@@ -1,4 +1,7 @@
+const propertyModel=require('../models/propertyModel');
 
+
+/*
 const dummyData=[
   { id: 1, name: "Seaside Resort", location: "Beirut, Lebanon", price: 120, image: "/images/hotel_demo_images/SeaSide.jpg" },
   { id: 2, name: "Mountain Escape", location: "Faraya, Lebanon", price: 95, image: "/images/hotel_demo_images/faraya.jpg" },
@@ -6,10 +9,18 @@ const dummyData=[
   { id: 4, name: "Cozy Cottage", location: "Byblos, Lebanon", price: 80, image: "/images/hotel_demo_images/Cottage.jpg" },
   { id: 5, name: "Luxury Suite", location: "Jounieh, Lebanon", price: 200, image: "/images/hotel_demo_images/Luxary.jpg" }
 ]
+*/
 
-exports.getAllHotels=(req,res)=>{
+exports.getAllHotels=async(req,res)=>{
   try {
-      res.render('Hotels/hotels', { hotels: dummyData ,username: req.session.user ? req.session.user.email : null });
+       const properties= await propertyModel.getAllProperties()
+       
+       
+
+       res.render('Hotels/hotels', { 
+        hotels: properties ,
+        username: req.session.user ? req.session.user.email : null });
+
   } catch (error) {
     console.log(error);
   }

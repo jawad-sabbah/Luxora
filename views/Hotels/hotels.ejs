@@ -39,11 +39,10 @@
     <div class="grid md:grid-cols-3 gap-8">
       <% hotels.forEach(hotel => { %>
         <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
-          <img src="<%= hotel.image %>" alt="<%= hotel.name %>" class="w-full h-48 object-cover">
+          <img src="<%= hotel.image_url %>" alt="<%= hotel.name %>" class="w-full h-48 object-cover">
           <div class="p-5">
-            <h2 class="text-xl font-semibold text-gray-800"><%= hotel.name %></h2>
-            <p class="text-gray-600 text-sm mb-2"><%= hotel.location %></p>
-            <p class="text-blue-600 font-bold text-lg mb-3">$<%= hotel.price %> / night</p>
+            <h2 class="text-xl font-semibold text-gray-800"><%= hotel.property_name %></h2>
+            <p class="text-gray-600 text-sm mb-2"><%= hotel.city %></p>
             <a href="/hotels/<%= hotel.id %>" 
                class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
               View Details
