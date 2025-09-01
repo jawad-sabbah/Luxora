@@ -1,5 +1,5 @@
 const propertyModel=require('../models/propertyModel');
-
+const roomModel=require('../models/roomModel');
 
 /*
 const dummyData=[
@@ -16,7 +16,6 @@ exports.getAllHotels=async(req,res)=>{
        const properties= await propertyModel.getAllProperties()
        
        
-
        res.render('Hotels/hotels', { 
         hotels: properties ,
         username: req.session.user ? req.session.user.email : null });
@@ -26,9 +25,8 @@ exports.getAllHotels=async(req,res)=>{
   }
 }
 
-exports.getHotelById=(req,res)=>{
-  try {
-     const hotel = {
+/*
+  const hotel = {
     id: 1,
     name: "Seaside Resort",
     location: "Beirut, Lebanon",
@@ -41,9 +39,18 @@ exports.getHotelById=(req,res)=>{
       { id: 102, type: "Suite", price: 200, amenities: ["WiFi", "AC", "Ocean View", "Jacuzzi"] }
     ]
   };
+   */
 
-  res.render('Hotels/details', { hotel });
-    
+exports.getHotelById=async(req,res)=>{
+  try {
+     const id=req.params.id;
+     const hotel= await propertyModel.getPropertyById(id);
+     const rooms= await roomModel.listRoomsWithAmentities(id);
+   
+     console.log(rooms);
+     
+  res.render('Hotels/details', { hotel, rooms });
+
   } catch (error) {
     console.log(error);
   }
