@@ -21,3 +21,14 @@ exports.listRoomsWithAmentities = async (propertyId) => {
   const result = await db.query(query, [propertyId]);
   return result.rows;
 };
+
+exports.listRoomGallery=async (roomId) => {
+  const query = `
+    SELECT * FROM room_gallery rg
+    JOIN rooms r ON rg.room_id = r.room_id
+    WHERE rg.room_id = $1
+  `;
+
+  const result = await db.query(query, [roomId]);
+  return result.rows;
+}

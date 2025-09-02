@@ -46,10 +46,12 @@ exports.getHotelById=async(req,res)=>{
      const id=req.params.id;
      const hotel= await propertyModel.getPropertyById(id);
      const rooms= await roomModel.listRoomsWithAmentities(id);
+     const gallery= await roomModel.listRoomGallery(id);
    
-     console.log(rooms);
+     console.log(gallery);
      
-  res.render('Hotels/details', { hotel, rooms });
+
+  res.render('Hotels/details', { hotel, rooms, gallery });
 
   } catch (error) {
     console.log(error);
