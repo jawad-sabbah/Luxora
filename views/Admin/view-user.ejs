@@ -7,8 +7,6 @@
 </head>
 <body class="bg-gray-100 p-6">
 
-  <!-- Back Button -->
-  <a href="/admin/users" class="inline-block mb-4 text-blue-600 hover:underline">← Back to Users</a>
 
   <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6">
     <h1 class="text-2xl font-bold mb-6">User Details</h1>
@@ -17,7 +15,7 @@
       <!-- User ID -->
       <div>
         <label class="block text-gray-700 font-medium">User ID</label>
-        <p class="px-4 py-2 border rounded bg-gray-100"><%= user.id %></p>
+        <p class="px-4 py-2 border rounded bg-gray-100"><%= user.user_id %></p>
       </div>
 
       <!-- Name -->
@@ -38,17 +36,7 @@
         <p class="px-4 py-2 border rounded bg-gray-50"><%= user.role %></p>
       </div>
 
-      <!-- Status -->
-      <div>
-        <label class="block text-gray-700 font-medium">Status</label>
-        <p class="px-4 py-2 border rounded 
-           <%= user.status === 'active' ? 'text-green-600' 
-              : user.status === 'inactive' ? 'text-yellow-600' 
-              : 'text-red-600' %>">
-          <%= user.status %>
-        </p>
-      </div>
-
+   
 
     <!-- Back Button -->
     <div class="mt-6 flex justify-end">

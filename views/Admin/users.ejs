@@ -44,28 +44,20 @@
             <th class="px-4 py-2 text-left text-gray-600">Name</th>
             <th class="px-4 py-2 text-left text-gray-600">Email</th>
             <th class="px-4 py-2 text-left text-gray-600">Role</th>
-            <th class="px-4 py-2 text-left text-gray-600">Status</th>
             <th class="px-4 py-2 text-left text-gray-600">Actions</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
           <% users.forEach(user => { %>
             <tr>
-              <td class="px-4 py-2"><%= user.id %></td>
+              <td class="px-4 py-2"><%= user.user_id %></td>
               <td class="px-4 py-2"><%= user.name %></td>
               <td class="px-4 py-2"><%= user.email %></td>
               <td class="px-4 py-2 capitalize"><%= user.role %></td>
-              <td class="px-4 py-2">
-                <% if (user.status === 'active') { %>
-                  <span class="text-green-600 font-semibold">Active</span>
-                <% } else { %>
-                  <span class="text-red-600 font-semibold"><%= user.status %></span>
-                <% } %>
-              </td>
               <td class="px-4 py-2 space-x-2">
-                <a href="/admin/users/view/<%= user.id %>" class="text-blue-600 hover:underline">View</a>
-                <a href="/admin/users/edit/<%= user.id %>" class="text-yellow-600 hover:underline">Edit</a>
-                <a href="/admin/users/block/<%= user.id %>" class="text-red-600 hover:underline">Block</a>
+                <a href="/admin/users/view/<%= user.user_id %>" class="text-blue-600 hover:underline">View</a>
+                <a href="/admin/users/edit/<%= user.user_id %>" class="text-yellow-600 hover:underline">Edit</a>
+                <a href="/admin/users/block/<%= user.user_id %>" class="text-red-600 hover:underline">Block</a>
               </td>
             </tr>
           <% }) %>

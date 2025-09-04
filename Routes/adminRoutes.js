@@ -16,7 +16,7 @@ router.get('/admin/hosts/edit/:id',requireLogin,adminController.showEditHost);
 router.get('/admin/users/edit/:id',requireLogin,adminController.showEditUser);
 router.get('/admin/users/view/:id',requireLogin,adminController.showViewUser);
 router.get('/admin/properties/view/:id',requireLogin,adminController.showViewProperty);
-
+router.get('/admin/users/block/:id', requireLogin, adminController.deleteUser);
 
 router.get('/admin/hosts/:id/delete',requireLogin,adminController.cancelHostVerification);
 

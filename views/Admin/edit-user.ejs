@@ -13,11 +13,11 @@
   <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6">
     <h1 class="text-2xl font-bold mb-6">Edit User</h1>
 
-    <form action="/admin/users/<%= user.id %>/edit" method="POST" class="space-y-4">
+    <form action="/admin/users/<%= user.user_id %>/edit" method="POST" class="space-y-4">
       <!-- User ID -->
       <div>
         <label class="block text-gray-700 font-medium">User ID</label>
-        <input type="text" value="<%= user.id %>" readonly 
+        <input type="text" value="<%= user.user_id %>" readonly 
                class="w-full border px-4 py-2 rounded bg-gray-100">
       </div>
 
@@ -39,21 +39,13 @@
       <div>
         <label class="block text-gray-700 font-medium">Role</label>
         <select name="role" class="w-full border px-4 py-2 rounded">
-          <option value="user" <%= user.role === 'user' ? 'selected' : '' %>>User</option>
-          <option value="host" <%= user.role === 'host' ? 'selected' : '' %>>Host</option>
-          <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>Admin</option>
+          <option value="Guest" <%= user.role === 'Guest' ? 'selected' : '' %>>Guest</option>
+          <option value="host" <%= user.role === 'Host' ? 'selected' : '' %>>Host</option>
+          <option value="admin" <%= user.role === 'Admin' ? 'selected' : '' %>>Admin</option>
         </select>
       </div>
 
-      <!-- Status -->
-      <div>
-        <label class="block text-gray-700 font-medium">Status</label>
-        <select name="status" class="w-full border px-4 py-2 rounded">
-          <option value="active" <%= user.status === 'active' ? 'selected' : '' %>>Active</option>
-          <option value="inactive" <%= user.status === 'inactive' ? 'selected' : '' %>>Inactive</option>
-          <option value="banned" <%= user.status === 'banned' ? 'selected' : '' %>>Banned</option>
-        </select>
-      </div>
+      
 
       <!-- Save Button -->
       <div class="flex justify-end">

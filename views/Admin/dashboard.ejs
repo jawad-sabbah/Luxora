@@ -42,52 +42,19 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div class="bg-white shadow rounded-lg p-6">
         <p class="text-gray-500">Total Users</p>
-        <p class="text-2xl font-bold text-blue-600"><%= stats.totalUsers %></p>
+        <p class="text-2xl font-bold text-blue-600"><%= totalUsers %></p>
       </div>
       <div class="bg-white shadow rounded-lg p-6">
         <p class="text-gray-500">Total Hosts</p>
-        <p class="text-2xl font-bold text-blue-600"><%= stats.totalHosts %></p>
+        <p class="text-2xl font-bold text-blue-600"><%= totalHosts %></p>
       </div>
       <div class="bg-white shadow rounded-lg p-6">
         <p class="text-gray-500">Total Bookings</p>
-        <p class="text-2xl font-bold text-blue-600"><%= stats.totalBookings %></p>
+        <p class="text-2xl font-bold text-blue-600">30</p>
       </div>
     </div>
 
-    <!-- Recent Bookings Table -->
-    <div class="bg-white shadow rounded-lg p-6">
-      <h2 class="text-xl font-semibold text-gray-800 mb-4">Recent Bookings</h2>
-      <table class="min-w-full border divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th class="px-4 py-2 text-left text-gray-600">Booking ID</th>
-            <th class="px-4 py-2 text-left text-gray-600">User</th>
-            <th class="px-4 py-2 text-left text-gray-600">Hotel</th>
-            <th class="px-4 py-2 text-left text-gray-600">Room</th>
-            <th class="px-4 py-2 text-left text-gray-600">Status</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-100">
-          <% recentBookings.forEach(booking => { %>
-            <tr>
-              <td class="px-4 py-2"><%= booking.id %></td>
-              <td class="px-4 py-2"><%= booking.user_name %></td>
-              <td class="px-4 py-2"><%= booking.hotel_name %></td>
-              <td class="px-4 py-2"><%= booking.room_type %></td>
-              <td class="px-4 py-2">
-                <% if (booking.status === 'confirmed') { %>
-                  <span class="text-green-600 font-semibold">Confirmed</span>
-                <% } else if (booking.status === 'pending') { %>
-                  <span class="text-yellow-600 font-semibold">Pending</span>
-                <% } else { %>
-                  <span class="text-red-600 font-semibold"><%= booking.status %></span>
-                <% } %>
-              </td>
-            </tr>
-          <% }) %>
-        </tbody>
-      </table>
-    </div>
+ 
 
   </main>
 </body>

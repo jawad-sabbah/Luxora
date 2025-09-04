@@ -7,5 +7,6 @@ router.get('/',requireLogin,hotelsController.getAllHotels);
 
 router.get('/:id',requireLogin,hotelsController.getHotelById);
 
+router.get('/:id/booking/:roomId', requireLogin, hotelsController.getBookRoom);
 
 module.exports=router;

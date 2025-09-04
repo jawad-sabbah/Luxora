@@ -37,22 +37,7 @@
 
     <!-- Left Column: Description & Rooms -->
     <div class="md:col-span-2 space-y-6">
-      <!-- Hotel Description -->
-      <div>
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">About this hotel</h2>
-        <p class="text-gray-600 mb-6"><%= hotel.description %></p>
-      </div>
-
-      
-
-        <!-- Gallery -->
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">Gallery</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-          <% gallery.forEach(img => { %>
-            <img src="<%= img.image_room_url %>" class="rounded-lg w-full h-40 object-cover" alt="Gallery image">
-          <% }) %>
-        </div> 
-
+     
 
       <!-- Rooms -->
       <div>
@@ -82,9 +67,9 @@
     <!-- Right Column: Quick Info -->
     <div class="bg-white shadow rounded-lg p-6">
       <h3 class="text-xl font-semibold text-gray-800 mb-4">Hotel Info</h3>
-      <p><span class="font-semibold">📍 Location:</span> <%= hotel.address %></p>
-      <p><span class="font-semibold">🕒 Check-in:</span> 2:00 PM</p>
-      <p><span class="font-semibold">🕒 Check-out:</span> 12:00 PM</p>
+      <p><span class="font-semibold"> Location:</span> <%= hotel.address %></p>
+      <p><span class="font-semibold">Check-in:</span> 2:00 PM</p>
+      <p><span class="font-semibold"> Check-out:</span> 12:00 PM</p>
     </div>
 
   </section>

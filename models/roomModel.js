@@ -32,3 +32,16 @@ exports.listRoomGallery=async (roomId) => {
   const result = await db.query(query, [roomId]);
   return result.rows;
 }
+
+exports.getRoomById=async (roomId) => {
+   const query = `
+      SELECT *,
+             check_in::date AS check_in_day,
+             EXTRACT(HOUR FROM check_in) AS check_in_hour
+      FROM rooms
+      WHERE room_id = $1
+    `;
+
+  const result = await db.query(query, [roomId]);
+  return result.rows[0];
+}

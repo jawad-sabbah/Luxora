@@ -1,5 +1,6 @@
 const propertyModel=require('../models/propertyModel');
 const roomModel=require('../models/roomModel');
+const userModel=require('../models/userModel');
 
 /*
 const dummyData=[
@@ -53,6 +54,20 @@ exports.getHotelById=async(req,res)=>{
 
   res.render('Hotels/details', { hotel, rooms, gallery });
 
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+exports.getBookRoom=async (req,res) => {
+  try {
+    const roomId = req.params.roomId;
+    const room = await roomModel.getRoomById(roomId);
+    const hotel = await propertyModel.getPropertyById(room.property_id);
+    const gallery=await roomModel.listRoomGallery(roomId);
+    const room_amenities=await roomModel.listRoomsWithAmentities(room.property_id);
+    const user= await userModel.getUserById(req.session.user.id);
+    res.render('Hotels/book-now', { room, hotel, gallery, room_amenities, user });
   } catch (error) {
     console.log(error);
   }

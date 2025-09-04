@@ -18,3 +18,34 @@ exports.findUserByEmail = async (email) => {
   const result = await db.query(query, [email]);
   return result.rows[0];
 };
+
+exports.getUserById = async (userId) => {
+  const query = "SELECT * FROM users WHERE user_id = $1";
+  const result = await db.query(query, [userId]);
+  return result.rows[0];
+};
+
+exports.getAllUsers = async () => {
+  const query = 'SELECT * FROM users order by user_id';
+  const result = await db.query(query);
+  return result.rows;
+};
+
+exports.updateUser=async (name,email,role,userId) => {
+  const query='update users set name=$1,email=$2,role=$3 where user_id=$4';
+  const result=await db.query(query,[name,email,role,userId])
+  return result.rows;
+
+}
+
+exports.deleteUser=async (id) => {
+  const query='delete from users where user_id=$1';
+  const result=await db.query(query,[id])
+  return result.rows;
+}
+
+exports.totalUsers=async () => {
+  const query='select count(*) from users';
+  const result=await db.query(query);
+  return result.rows[0].count;
+}

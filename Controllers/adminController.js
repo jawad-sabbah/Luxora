@@ -1,9 +1,6 @@
+const userModel=require('../models/userModel');
+const hostModel=require('../models/hostModel');
 
-const stats = {
-    totalUsers: 120,
-    totalHosts: 15,
-    totalBookings: 87
-  };
 
   // Demo recent bookings
   const recentBookings = [
@@ -14,24 +11,33 @@ const stats = {
     { id: 105, user_name: 'Evan Lee', hotel_name: 'Mountain Lodge', room_type: 'Deluxe Room', status: 'pending' },
   ];
 
-exports.showDashboard=(req,res)=>{
+exports.showDashboard=async (req,res)=>{
   try {
-    res.render('admin/dashboard',{ user: req.session.user || null, stats, recentBookings     });
-  } catch (error) {
+    const totalUsers=await userModel.totalUsers();
+   const totalHosts=await hostModel.getAllHosts();
+
+    res.render('admin/dashboard',
+   { user: req.session.user || null,
+     totalUsers,
+     totalHosts
+   });
+
+
+    } catch (error) {
     console.log(error);
   } 
 }
-const users = [
-    { id: 1, name: 'Alice Johnson', email: 'alice@example.com', role: 'user', status: 'active' },
-    { id: 2, name: 'Bob Smith', email: 'bob@example.com', role: 'user', status: 'active' },
-    { id: 3, name: 'Charlie Davis', email: 'charlie@example.com', role: 'admin', status: 'inactive' },
-    { id: 4, name: 'Diana Prince', email: 'diana@example.com', role: 'user', status: 'active' },
-    { id: 5, name: 'Evan Lee', email: 'evan@example.com', role: 'user', status: 'inactive' },
-];
 
-exports.showUsers=(req,res)=>{
+exports.showUsers=async(req,res)=>{
   try {
+   const users= await userModel.getAllUsers();
+
+   if (!users) {
+    res.send('no user found')
+   }
+
     res.render('admin/users',{ user: req.session.user || null, users });
+
   } catch (error) {
     console.log(error);
   } 
@@ -159,11 +165,15 @@ exports.editHost=async (req,res) => {
 
 exports.showEditUser=async (req,res) => {
   try {
-    const user = users.find(u => u.id === parseInt(req.params.id));
+   const userId=req.params.id;
+   const user=await userModel.getUserById(userId);
+
     if (!user) {
       return res.status(404).send('User not found');
     }
-    res.render('admin/edit-user',{ user: req.session.user || null, user });
+   
+    
+    res.render('admin/edit-user',{  user });
   } catch (error) {
      console.log(error);
   }
@@ -171,6 +181,16 @@ exports.showEditUser=async (req,res) => {
 
 exports.editUser=async (req,res) => {
   try {
+    const {name,email,role}=req.body;
+    const userId=req.params.id;
+    const user=await userModel.updateUser(name,email,role,userId);
+    
+    
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    
     res.redirect('/admin/users');
   } catch (error) {
     console.log(error);
@@ -178,22 +198,40 @@ exports.editUser=async (req,res) => {
   }
 }
 
-const user=[{
-   id: 1,
-   name: 'Alice Johnson',
-   email: 'alice@example.com',
-   role: 'user',
-   status: 'active'
-}]
+
 
 exports.showViewUser=async (req,res) => {
 
   try {
+
+    
+  const userId=req.params.id;
+  const user=await userModel.getUserById(userId);
+  
+  
+   if (!user) {
+     return res.status(404).send('User not found');
+   }
+
     res.render('admin/view-user', {  user });
   } catch (error) {
     console.log(error);
   }
 
+}
+
+
+exports.deleteUser=async (req,res) => {
+  try {
+    const userId=req.params.id;
+    const user=await userModel.deleteUser(userId);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    res.redirect('/Admin/users');
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 
