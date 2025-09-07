@@ -65,9 +65,12 @@ exports.getBookRoom=async (req,res) => {
     const room = await roomModel.getRoomById(roomId);
     const hotel = await propertyModel.getPropertyById(room.property_id);
     const gallery=await roomModel.listRoomGallery(roomId);
-    const room_amenities=await roomModel.listRoomsWithAmentities(room.property_id);
+    const room_amenities=await roomModel.listRoomsWithAmentities(roomId);
     const user= await userModel.getUserById(req.session.user.id);
     res.render('Hotels/book-now', { room, hotel, gallery, room_amenities, user });
+
+    console.log(room);
+    
   } catch (error) {
     console.log(error);
   }

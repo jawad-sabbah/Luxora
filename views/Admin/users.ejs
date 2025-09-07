@@ -18,6 +18,7 @@
       <a href="/admin/dashboard" class="block px-4 py-2 rounded hover:bg-blue-100 font-semibold text-gray-700">Dashboard</a>
       <a href="/admin/users" class="block px-4 py-2 rounded hover:bg-blue-100 font-semibold text-blue-600">Users</a>
       <a href="/admin/hosts" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Hosts</a>
+       <a href="/admin/hostsRequests" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Hosts request</a>
       <a href="/admin/properties" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Properties</a>
       <a href="/admin/bookings" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Bookings</a>
       <a href="/logout" class="block px-4 py-2 rounded hover:bg-red-100 text-red-600 font-semibold">Logout</a>
@@ -34,6 +35,24 @@
   Back to Home
 </a>
 
+ 
+ <!-- Search -->
+    <form method="get" action="/admin/users" class="flex items-center mb-6">
+      <input type="text" name="search"  value="<%= search %>"
+             placeholder="Search by name, email or ID"
+             class="w-full p-2 border rounded-l-lg focus:ring focus:ring-blue-300">
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700">
+        Search
+      </button>
+       <% if (search) { %>
+    <a href="/admin/users" class="px-4 py-2 bg-gray-300 text-gray-800 rounded">
+      Clear
+    </a>
+  <% } %>
+    </form>
+    
+
+ 
     <h1 class="text-3xl font-bold text-gray-800 mb-6">All Users</h1>
 
     <div class="bg-white shadow rounded-lg p-6">

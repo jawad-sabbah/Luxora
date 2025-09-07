@@ -26,7 +26,7 @@ exports.getUserById = async (userId) => {
 };
 
 exports.getAllUsers = async () => {
-  const query = 'SELECT * FROM users order by user_id';
+  const query = 'SELECT * FROM users order by user_id ';
   const result = await db.query(query);
   return result.rows;
 };
@@ -48,4 +48,11 @@ exports.totalUsers=async () => {
   const query='select count(*) from users';
   const result=await db.query(query);
   return result.rows[0].count;
+}
+
+
+exports.searchUsers=async (search) => {
+  const query='select * from users where name ILIKE $1 or email ILIKE $1';
+  const result=await db.query(query,[`%${search}%`]);
+  return result.rows;
 }

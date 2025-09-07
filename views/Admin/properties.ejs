@@ -17,6 +17,7 @@
       <a href="/admin/dashboard" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Dashboard</a>
       <a href="/admin/users" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Users</a>
       <a href="/admin/hosts" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Hosts</a>
+       <a href="/admin/hostsRequests" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Hosts request</a>
       <a href="/admin/properties" class="block px-4 py-2 rounded hover:bg-blue-100 font-semibold text-blue-600">Properties</a>
       <a href="/admin/bookings" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Bookings</a>
      
@@ -42,7 +43,7 @@
           <tr>
             <th class="px-4 py-2 text-left text-gray-600">ID</th>
             <th class="px-4 py-2 text-left text-gray-600">Property Name</th>
-            <th class="px-4 py-2 text-left text-gray-600">Host</th>
+            <th class="px-4 py-2 text-left text-gray-600">Owner</th>
             <th class="px-4 py-2 text-left text-gray-600">City</th>
             <th class="px-4 py-2 text-left text-gray-600">Status</th>
             <th class="px-4 py-2 text-left text-gray-600">Actions</th>
@@ -51,9 +52,9 @@
         <tbody class="divide-y divide-gray-100">
           <% properties.forEach(property => { %>
             <tr>
-              <td class="px-4 py-2"><%= property.id %></td>
+              <td class="px-4 py-2"><%= property.property_id %></td>
               <td class="px-4 py-2"><%= property.property_name %></td>
-              <td class="px-4 py-2"><%= property.host_name %></td>
+              <td class="px-4 py-2"><%= property.name  %></td>
               <td class="px-4 py-2"><%= property.city %></td>
               <td class="px-4 py-2">
                 <% if (property.status === 'active') { %>
@@ -63,9 +64,9 @@
                 <% } %>
               </td>
               <td class="px-4 py-2 space-x-2">
-                <a href="/admin/properties/view/<%= property.id %>" class="text-blue-600 hover:underline">View</a>
-                <a href="/admin/properties/edit/<%= property.id %>" class="text-yellow-600 hover:underline">Edit</a>
-                <a href="/admin/properties/block/<%= property.id %>" class="text-red-600 hover:underline">Block</a>
+                <form action="/admin/properties/block/<%= property.property_id %>" method="post">
+                  <button type="submit" class="text-red-600 hover:underline">Block</button>
+                </form>
               </td>
             </tr>
           <% }) %>
