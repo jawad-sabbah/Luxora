@@ -16,7 +16,14 @@
       <a href="/admin/dashboard" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Dashboard</a>
       <a href="/admin/users" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Users</a>
       <a href="/admin/hosts" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Hosts</a>
-      <a href="/admin/hostsRequests" class="block px-4 py-2 rounded bg-blue-100 font-semibold text-blue-600">Host Requests</a>
+       <a href="/admin/hostsRequests" class="relative block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">
+        Hosts Requests
+        <% if (pendingRequests > 0) { %>
+          <span class="absolute top-1 right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+            <%= pendingRequests %>
+          </span>
+        <% } %>
+      </a>
       <a href="/admin/properties" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Properties</a>
       <a href="/admin/bookings" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Bookings</a>
       <a href="/logout" class="block px-4 py-2 rounded hover:bg-red-100 text-red-600 font-semibold">Logout</a>
@@ -43,16 +50,16 @@
           <% if (hosts && hosts.length > 0) { %>
             <% hosts.forEach(host => { %>
               <tr>
-                <td class="px-4 py-2"><%= host.host_id %></td>
+                <td class="px-4 py-2"><%= host.request_id %></td>
                 <td class="px-4 py-2"><%= host.name %></td>
                 <td class="px-4 py-2"><%= host.email %></td>
-                <td class="px-4 py-2"><%= host.payout_email || "N/A" %></td>
-                <td class="px-4 py-2"><%= host.bank_account || "N/A" %></td>
+                <td class="px-4 py-2"><%= host.paypal || "N/A" %></td>
+                <td class="px-4 py-2"><%= host.bankaccount || "N/A" %></td>
                 <td class="px-4 py-2 space-x-2">
-                  <form action="/admin/hosts/<%= host.host_id %>/verify" method="POST" class="inline">
+                  <form action="/admin/hosts/<%= host.request_id  %>/verify" method="POST" class="inline">
                     <button type="submit" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Verify</button>
                   </form>
-                  <form action="/admin/hosts/<%= host.host_id %>/delete" method="POST" class="inline">
+                  <form action="/admin/hosts/<%= host.request_id  %>/delete" method="POST" class="inline">
                     <button type="submit" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
                   </form>
                 </td>

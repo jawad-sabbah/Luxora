@@ -17,7 +17,17 @@
       <a href="/admin/dashboard" class="block px-4 py-2 rounded hover:bg-blue-100 font-semibold text-gray-700">Dashboard</a>
       <a href="/admin/users" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Users</a>
       <a href="/admin/hosts" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Hosts</a>
-      <a href="/admin/hostsRequests" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Hosts request</a>
+      
+      
+      <a href="/admin/hostsRequests" class="relative block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">
+        Hosts Requests
+        <% if (pendingRequests > 0) { %>
+          <span class="absolute top-1 right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+            <%= pendingRequests %>
+          </span>
+        <% } %>
+      </a>
+
       <a href="/admin/properties" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Properties</a>
       <a href="/admin/bookings" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Bookings</a>
       <a href="/logout" class="block px-4 py-2 rounded hover:bg-red-100 text-red-600 font-semibold">Logout</a>
@@ -27,17 +37,14 @@
   <!-- Main Content -->
   <main class="flex-1 p-8">
     <!-- Back to Home -->
-<a href="/" class="inline-flex items-center text-gray-600 hover:text-blue-600 mb-4">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-    <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0L3.586 10l4.707-4.707a1 1 0 011.414 1.414L6.414 10l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-  </svg>
-  Back to Home
-</a>
-
+    <a href="/" class="inline-flex items-center text-gray-600 hover:text-blue-600 mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0L3.586 10l4.707-4.707a1 1 0 011.414 1.414L6.414 10l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+      </svg>
+      Back to Home
+    </a>
 
     <h1 class="text-3xl font-bold text-gray-800 mb-6">Super Admin Dashboard</h1>
-
-    
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -54,9 +61,6 @@
         <p class="text-2xl font-bold text-blue-600"><%= totalBooking %></p>
       </div>
     </div>
-
- 
-
   </main>
 </body>
 </html>

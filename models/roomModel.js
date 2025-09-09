@@ -68,3 +68,14 @@ exports.getRoomAmentities=async (roomId) => {
 
   return result.rows.map(row => row.name);    
 }
+
+exports.updateRoomAvailability=async (status,roomId) => {
+  const query = `
+    UPDATE rooms
+    SET status = $1
+    WHERE room_id = $2
+    RETURNING *;
+  `;  
+  const result = await db.query(query, [status, roomId]);
+  return result.rows[0];  
+}

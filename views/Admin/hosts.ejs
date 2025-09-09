@@ -17,7 +17,14 @@
       <a href="/admin/dashboard" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Dashboard</a>
       <a href="/admin/users" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Users</a>
       <a href="/admin/hosts" class="block px-4 py-2 rounded hover:bg-blue-100 font-semibold text-blue-600">Hosts</a>
-       <a href="/admin/hostsRequests" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Hosts request</a>
+        <a href="/admin/hostsRequests" class="relative block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">
+        Hosts Requests
+        <% if (pendingRequests > 0) { %>
+          <span class="absolute top-1 right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+            <%= pendingRequests %>
+          </span>
+        <% } %>
+      </a>
       <a href="/admin/properties" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Properties</a>
       <a href="/admin/bookings" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Bookings</a>
       <a href="/logout" class="block px-4 py-2 rounded hover:bg-red-100 text-red-600 font-semibold">Logout</a>
@@ -61,7 +68,6 @@
             <th class="px-4 py-2 text-left text-gray-600">Payout Email</th>
             <th class="px-4 py-2 text-left text-gray-600">Bank Account</th>
             <th class="px-4 py-2 text-left text-gray-600">Phone Number</th>
-            <th class="px-4 py-2 text-left text-gray-600">Verified</th>
             <th class="px-4 py-2 text-left text-gray-600">Actions</th>
           </tr>
         </thead>
@@ -71,16 +77,9 @@
               <td class="px-4 py-2"><%= host.host_id %></td>
               <td class="px-4 py-2"><%= host.name %></td>
               <td class="px-4 py-2"><%= host.email %></td>
-              <td class="px-4 py-2"><%= host.payout_email %></td>
-              <td class="px-4 py-2"><%= host.bank_account %></td>
-              <td class="px-4 py-2"><%= host.phone_number %></td>
-              <td class="px-4 py-2">
-                <% if (host.verified) { %>
-                  <span class="text-green-600 font-semibold">Verified</span>
-                <% } else { %>
-                  <span class="text-yellow-600 font-semibold">Pending</span>
-                <% } %>
-              </td>
+              <td class="px-4 py-2"><%= host.paypal %></td>
+              <td class="px-4 py-2"><%= host.bankaccount %></td>
+              <td class="px-4 py-2"><%= host.phonenumber %></td>
               <td class="px-4 py-2 space-x-2">  
                 <a href="/admin/hosts/edit/<%= host.host_id %>" class="text-yellow-600 hover:underline">Edit</a>
               <form action="/admin/hosts/block/<%= host.host_id %>" method="POST" style="display:inline;">

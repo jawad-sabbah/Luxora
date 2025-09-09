@@ -5,6 +5,6 @@ const {requireLogin}=require('../middlewares/authMiddleware');
 
 router.get('/register-host',requireLogin,hostController.showHostRegister);
 
-
+router.post('/registerHost',requireLogin,hostController.RegisterAsHost)
 
 module.exports=router;

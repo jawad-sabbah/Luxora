@@ -2,21 +2,23 @@ const userModel=require('../models/userModel');
 const hostModel=require('../models/hostModel');
 const propertyModel=require('../models/propertyModel')
 const bookingModel=require('../models/bookingModel')
-
+const hostRequestModel=require('../models/hostRequestModel')
  
 exports.showDashboard=async (req,res)=>{
   try {
     const totalUsers=await userModel.totalUsers();
     const totalHosts=await hostModel.hostCount();
     const totalBooking=await bookingModel.bookCount()
-
+    const pendingRequests=await hostRequestModel.countRequests()
    
-
+   
+      
     res.render('admin/dashboard',
    { user: req.session.user || null,
      totalUsers,
      totalHosts,
-     totalBooking
+     totalBooking,
+     pendingRequests
    });
 
 
@@ -29,6 +31,7 @@ exports.showUsers=async(req,res)=>{
   try {
    let users;
    const search=req.query.search
+   const pendingRequests=await hostRequestModel.countRequests()
 
   if (search) {
     users=await userModel.searchUsers(search)
@@ -41,7 +44,7 @@ else{
    }
 
 }
-    res.render('admin/users',{ user: req.session.user || null, users,search });
+    res.render('admin/users',{ user: req.session.user || null, users,search,pendingRequests });
 
   } catch (error) {
     console.log(error);
@@ -129,6 +132,7 @@ exports.showHosts=async (req,res)=>{
 
   try {
     const search=req.query.search
+    const pendingRequests=await hostRequestModel.countRequests()
     let hosts  
     console.log(search);
     
@@ -144,22 +148,12 @@ exports.showHosts=async (req,res)=>{
       
       
     
-    res.render('admin/hosts',{ user: req.session.user || null, hosts ,search});
+    res.render('admin/hosts',{ user: req.session.user || null, hosts ,search,pendingRequests});
   } catch (error) {
     console.log(error);
   } 
 }
 
-exports.verifyHost=async (req,res) => {
-  
-  const hostId=req.params.id;
-  try {
-     await hostModel.verifyHost(hostId);
-     res.redirect('/admin/hosts');
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 exports.showEditHost=async (req,res) => {
 
@@ -204,22 +198,45 @@ exports.deleteHost=async (req,res) => {
 
 exports.showHostRequests=async (req,res) => {
   try {
-    const unVerifiedHosts=await hostModel.getUnVerifiedHosts();
-    if (!unVerifiedHosts) {
-      res.send('no hosts found')
+    const hostRequests=await hostRequestModel.showAllRequests();
+    const pendingRequests=await hostRequestModel.countRequests()
+    if (!hostRequests) {
+      res.send('no requests')
     }
-    res.render('admin/pending-hosts',{ user: req.session.user || null, hosts:unVerifiedHosts });
+
+    res.render('admin/pending-hosts',{ user: req.session.user || null, hosts:hostRequests ,pendingRequests});
   } catch (error) {
     console.log(error);
   }   
 }
 
+exports.verifyHostRequest=async (req,res) => {
+  
+  const hostId=req.params.id;
+  const userId=req.session.user.id;
 
+  try {
+    const result = await hostRequestModel.verifyHostRequest(hostId);
+    
+    
+    if (result) {
+      const payout_email=result.paypal
+      const bankAccount=result.bankaccount
+      const phonenumber=result.phonenumber
+      
+      await hostModel.createHost(userId,payout_email,bankAccount,phonenumber);
+    }
+
+    res.redirect('/admin/hosts');
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 exports.deleteHostRequest=async (req,res) => {
      const hostId=req.params.id
   try {
-    await hostModel.deleteHostRequest(hostId);
+    await hostRequestModel.deleteHostRequest(hostId);
     res.redirect('/admin/hostsRequests');
   } catch (error) {
     console.log(error);
@@ -237,8 +254,8 @@ exports.deleteHostRequest=async (req,res) => {
 exports.showProperties=async (req,res) => {
   try {
      const properties=await propertyModel.getAllPropertiesAndHostId();
-
-    res.render('admin/properties',{ user: req.session.user || null, properties });
+     const pendingRequests=await hostRequestModel.countRequests()
+    res.render('admin/properties',{ user: req.session.user || null, properties,pendingRequests });
   } catch (error) {
     console.log(error);
   } 
@@ -274,9 +291,9 @@ exports.blockProperty=async (req,res) => {
 exports.showBookings=async(req,res)=>{ 
   try {
     const booking=await bookingModel.getAllBooking();
-   
+    const pendingRequests=await hostRequestModel.countRequests()
     
-    res.render('admin/bookings',{ user: req.session.user || null, bookings: booking });
+    res.render('admin/bookings',{ user: req.session.user || null, bookings: booking,pendingRequests });
   } catch (error) {
     console.log(error);
   } 

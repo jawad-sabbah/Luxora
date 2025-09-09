@@ -112,7 +112,11 @@ exports.bookRoom = async (req, res) => {
       payment_account
     );
 
-    console.log(booking);
+      if (booking) {
+        roomModel.updateRoomAvailability('not avaiable',roomId); // Mark room as unavailable
+      }
+
+    console.log(await roomModel.updateRoomAvailability('not avaiable',roomId));
     
 
     res.redirect(`/Hotels/receipt/${booking.booking_id}`); // use returned booking ID

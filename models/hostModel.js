@@ -1,5 +1,13 @@
 const db=require('../db');
 
+
+exports.createHost=async (userId,payout_email,bank_account,phone_number) => {
+  const query='insert into hosts(user_id,payout_email,bank_account,phone_number) values($1,$2,$3,$4) returning *';
+  const result=await db.query(query,[userId,payout_email,bank_account,phone_number]);
+  return result.rows[0];
+}
+
+
 exports.hostCount=async (params) => {
   const query='select count(host_id) from hosts'
   const result=await db.query(query);
@@ -8,8 +16,19 @@ exports.hostCount=async (params) => {
 
 
 exports.getAllHosts=async () => {
-  const query='select * from hosts join users on hosts.user_id = users.user_id order by host_id';
-  const result = await db.query(query);
+ 
+ const query = `
+  SELECT DISTINCT ON (h.host_id)
+       h.host_id, h.user_id, u.name, u.email,
+       hr.request_id, hr.status, hr.phonenumber, hr.paypal, hr.bankaccount
+  FROM hosts h
+  JOIN users u ON h.user_id = u.user_id
+  JOIN host_requests hr ON h.user_id = hr.user_id
+  WHERE hr.status = $1
+  ORDER BY h.host_id, hr.request_id DESC
+`;
+
+  const result = await db.query(query, ['approved']);
   return result.rows;
 };  
 
@@ -24,24 +43,6 @@ exports.updateHost=async (payout_email, bank_account, phone_number, hostId) => {
   const query='update hosts set payout_email=$1, bank_account=$2, phone_number=$3 where host_id=$4';
   await db.query(query, [payout_email, bank_account, phone_number, hostId]);
 };
-
-exports.getUnVerifiedHosts=async () => {
-  const query= 'select * from hosts join users on hosts.user_id=users.user_id where verified=false';
-  const result= await db.query(query);
-  return result.rows
-}
-
-exports.verifyHost=async (hostId) => {
-  const query='update hosts set verified=true where host_id=$1';
-  await db.query(query, [hostId]);
-};
-
-
-exports.deleteHost=async (hostId) => {
-  const query='delete from hosts where host_id=$1';
-  await db.query(query, [hostId]);
-  
-}
 
 exports.searchHosts=async (search) => {
   const query='select * from hosts join users on hosts.user_id = users.user_id where users.name ILIKE $1 or users.email ILIKE $1 ';

@@ -20,7 +20,7 @@ router.post('/admin/users/:id/edit',requireLogin,adminController.editUser);
 
 //  Edit, Verify, Block Hosts
 router.get('/admin/hosts/edit/:id',requireLogin,adminController.showEditHost);
-router.post('/admin/hosts/:id/verify',requireLogin,adminController.verifyHost);
+
 router.post('/admin/hosts/:id/edit',requireLogin,adminController.editHost);
 router.post('/admin/hosts/block/:id',requireLogin,adminController.deleteHost);
 
@@ -30,6 +30,7 @@ router.get('/admin/hostsRequests',requireLogin,adminController.showHostRequests)
 module.exports=router;
 router.post('/admin/hosts/:id/delete',requireLogin,adminController.deleteHostRequest);
 
+router.post('/admin/hosts/:id/verify',requireLogin,adminController.verifyHostRequest);
 
 
 router.get('/admin/properties/view/:id',requireLogin,adminController.showViewProperty);
