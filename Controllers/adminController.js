@@ -1,25 +1,22 @@
 const userModel=require('../models/userModel');
 const hostModel=require('../models/hostModel');
 const propertyModel=require('../models/propertyModel')
+const bookingModel=require('../models/bookingModel')
 
-  // Demo recent bookings
-  const recentBookings = [
-    { id: 101, user_name: 'Alice Johnson', hotel_name: 'Seaside Resort', room_type: 'Deluxe Room', status: 'confirmed' },
-    { id: 102, user_name: 'Bob Smith', hotel_name: 'Mountain Lodge', room_type: 'Suite', status: 'pending' },
-    { id: 103, user_name: 'Charlie Davis', hotel_name: 'City Inn', room_type: 'Standard Room', status: 'cancelled' },
-    { id: 104, user_name: 'Diana Prince', hotel_name: 'Seaside Resort', room_type: 'Suite', status: 'confirmed' },
-    { id: 105, user_name: 'Evan Lee', hotel_name: 'Mountain Lodge', room_type: 'Deluxe Room', status: 'pending' },
-  ];
-
+ 
 exports.showDashboard=async (req,res)=>{
   try {
     const totalUsers=await userModel.totalUsers();
     const totalHosts=await hostModel.hostCount();
+    const totalBooking=await bookingModel.bookCount()
+
+   
 
     res.render('admin/dashboard',
    { user: req.session.user || null,
      totalUsers,
-     totalHosts
+     totalHosts,
+     totalBooking
    });
 
 
@@ -272,17 +269,14 @@ exports.blockProperty=async (req,res) => {
 }
 
 
-const bookings=[
-  { id: 101, user_name: 'Alice Johnson', hotel_name: 'Seaside Resort', room_type: 'Deluxe Room', status: 'confirmed' },
-  { id: 102, user_name: 'Bob Smith', hotel_name: 'Mountain Lodge', room_type: 'Suite', status: 'pending' },
-  { id: 103, user_name: 'Charlie Davis', hotel_name: 'City Inn', room_type: 'Standard Room', status: 'cancelled' },
-  { id: 104, user_name: 'Diana Prince', hotel_name: 'Seaside Resort', room_type: 'Suite', status: 'confirmed' },
-  { id: 105, user_name: 'Evan Lee', hotel_name: 'Mountain Lodge', room_type: 'Deluxe Room', status: 'pending' },
-]
 
-exports.showBookings=(req,res)=>{ 
+
+exports.showBookings=async(req,res)=>{ 
   try {
-    res.render('admin/bookings',{ user: req.session.user || null, bookings: recentBookings });
+    const booking=await bookingModel.getAllBooking();
+   
+    
+    res.render('admin/bookings',{ user: req.session.user || null, bookings: booking });
   } catch (error) {
     console.log(error);
   } 

@@ -46,25 +46,24 @@
             <th class="px-4 py-2 text-left text-gray-600">Check-in</th>
             <th class="px-4 py-2 text-left text-gray-600">Check-out</th>
             <th class="px-4 py-2 text-left text-gray-600">Status</th>
-            <th class="px-4 py-2 text-left text-gray-600">Actions</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
           <% bookings.forEach(booking => { %>
             <tr>
-              <td class="px-4 py-2"><%= booking.id %></td>
-              <td class="px-4 py-2"><%= booking.user_name %></td>
+              <td class="px-4 py-2"><%= booking.booking_id %></td>
+              <td class="px-4 py-2"><%= booking.name %></td>
               <td class="px-4 py-2"><%= booking.property_name %></td>
-              <td class="px-4 py-2"><%= booking.room_type %></td>
-              <td class="px-4 py-2"><%= booking.checkin %></td>
-              <td class="px-4 py-2"><%= booking.checkout %></td>
+              <td class="px-4 py-2"><%= booking.type %></td>
+              <td class="px-4 py-2"><%= booking.check_in %></td>
+              <td class="px-4 py-2"><%= booking.check_out %></td>
               <td class="px-4 py-2">
                 <% if (booking.status === 'confirmed') { %>
                   <span class="text-green-600 font-semibold">Confirmed</span>
                 <% } else if (booking.status === 'pending') { %>
                   <span class="text-yellow-600 font-semibold">Pending</span>
                 <% } else { %>
-                  <span class="text-red-600 font-semibold"><%= booking.status %></span>
+                  <span class="text-red-600 font-semibold"><%= booking.booking_status %></span>
                 <% } %>
               </td>
               <td class="px-4 py-2 space-x-2">
@@ -72,7 +71,7 @@
                   <a href="/admin/bookings/approve/<%= booking.id %>" class="text-green-600 hover:underline">Approve</a>
                   <a href="/admin/bookings/reject/<%= booking.id %>" class="text-red-600 hover:underline">Reject</a>
                 <% } %>
-                <a href="/admin/bookings/view/<%= booking.id %>" class="text-blue-600 hover:underline">View</a>
+               
               </td>
             </tr>
           <% }) %>

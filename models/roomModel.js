@@ -14,6 +14,7 @@ exports.listRoomsWithAmentities = async (propertyId) => {
     FROM rooms r
     LEFT JOIN room_amenities a ON r.room_id = a.room_id
     WHERE r.property_id = $1
+    and r.status = 'available'
     GROUP BY r.room_id
     ORDER BY r.room_id;
   `;
@@ -21,6 +22,18 @@ exports.listRoomsWithAmentities = async (propertyId) => {
   const result = await db.query(query, [propertyId]);
   return result.rows;
 };
+
+
+exports.getRoomDetails=async (roomId) => {
+  const query = `
+    select * from rooms r
+    where r.room_id=$1
+  `;
+  //not return 3 row for each amentiteis it return it in one array
+  const result = await db.query(query, [roomId]);
+  return result.rows;
+}
+
 
 exports.listRoomGallery=async (roomId) => {
   const query = `
@@ -44,4 +57,14 @@ exports.getRoomById=async (roomId) => {
 
   const result = await db.query(query, [roomId]);
   return result.rows[0];
+}
+
+exports.getRoomAmentities=async (roomId) => {
+  const query = `
+    SELECT name FROM room_amenities
+    WHERE room_id = $1
+  `;  
+  const result = await db.query(query, [roomId]); 
+
+  return result.rows.map(row => row.name);    
 }

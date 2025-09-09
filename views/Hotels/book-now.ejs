@@ -55,7 +55,7 @@
         <h2 class="text-xl font-semibold mb-4">Room Details</h2>
         <p class="text-gray-600 mb-2"><strong>Type:</strong> <%= room.type %></p>
         <p class="text-gray-600 mb-2"><strong>Description:</strong> <%= room.description %></p>
-        <p class="text-gray-600 mb-2"><strong>Amenities:</strong> <%= room_amenities.join(", ") %></p>
+        <p class="text-gray-600 mb-2"><strong>Amenities:</strong> <%= amenities.join(", ") %></p>
         <p class="text-gray-600 mb-2"><strong>Max Guests:</strong> <%= room.max_guest %></p>
         <p class="text-gray-600 mb-2"><strong>Check-in:</strong> <%= room.check_in %> </p>
         <p class="text-gray-600 mb-2"><strong>Check-out:</strong> 12:00 PM</p>
@@ -72,16 +72,17 @@
       </div>
 
       <!-- Guest Info -->
-      <form action="/hotels/<%= hotel.id %>/booking/<%= room.room_id %>/confirm" method="POST" class="space-y-4">
+      <form action="/hotels/<%= hotel.property_id %>/booking/<%= room.room_id %>/confirm" method="POST" class="space-y-4">
         <h3 class="text-lg font-semibold">Guest Information</h3>
         <input type="text" name="name" placeholder="Full Name" value="<%= user.name %>" required class="w-full border rounded-lg px-3 py-2">
         <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required class="w-full border rounded-lg px-3 py-2">
+        <input type="text" name="numGuests" placeholder="max Guests : <%= room.max_guest %>  " required class="w-full border rounded-lg px-3 py-2">
         <input type="tel" name="phone" placeholder="Phone Number" class="w-full border rounded-lg px-3 py-2">
         <textarea name="requests" placeholder="Special requests (optional)" class="w-full border rounded-lg px-3 py-2"></textarea>
 
         <!-- Payment Method -->
         <h3 class="text-lg font-semibold">Payment Method</h3>
-        <select name="payment_method" required class="w-full border rounded-lg px-3 py-2">
+        <select name="payment_method" required class="w-full border rounded-lg px-3 py-2" id="payment_method">
           <option value="">Select a payment method</option>
           <option value="Credit Card">Credit Card</option>
           <option value="PayPal">PayPal</option>
@@ -89,7 +90,7 @@
           <option value="Cash">Pay at Hotel</option>
         </select>
 
-     
+        <div id="payment_details" class="mt-4"></div>
 
         <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-semibold">
           Confirm Booking
@@ -102,4 +103,46 @@
   </main>
 
 </body>
+
+<script>
+  const payment_method = document.querySelector('#payment_method');
+  const payment_details = document.querySelector('#payment_details');
+
+  payment_method.addEventListener('change', function () {
+    payment_details.innerHTML = ''; // clear previous inputs
+
+    if (this.value === 'Credit Card') {
+      const creditInput = document.createElement('input');
+      creditInput.type = 'text';
+      creditInput.name = 'credit_card_number';
+      creditInput.placeholder = 'Enter Credit Card Number';
+      creditInput.className = 'w-full border rounded-lg px-3 py-2';
+      creditInput.required=true
+      payment_details.appendChild(creditInput);
+    }
+
+    else if (this.value === 'PayPal') {
+      const paypalInput = document.createElement('input');
+      paypalInput.type = 'email';
+      paypalInput.name = 'paypal_email';
+      paypalInput.placeholder = 'Enter PayPal Email';
+      paypalInput.className = 'w-full border rounded-lg px-3 py-2';
+      paypalInput.required=true
+      payment_details.appendChild(paypalInput);
+    }
+
+    else if (this.value === 'Bank Transfer') {
+      const bankInput = document.createElement('input');
+      bankInput.type = 'text';
+      bankInput.name = 'bank_account_number';
+      bankInput.placeholder = 'Enter Bank Account Number';
+      bankInput.className = 'w-full border rounded-lg px-3 py-2';
+      bankInput.required=true
+      payment_details.appendChild(bankInput);
+    }
+  });
+     
+
+</script>
+
 </html>

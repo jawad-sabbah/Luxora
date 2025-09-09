@@ -1,6 +1,7 @@
 const propertyModel=require('../models/propertyModel');
 const roomModel=require('../models/roomModel');
 const userModel=require('../models/userModel');
+const bookingModel=require('../models/bookingModel')
 
 /*
 const dummyData=[
@@ -44,15 +45,14 @@ exports.getAllHotels=async(req,res)=>{
 
 exports.getHotelById=async(req,res)=>{
   try {
-     const id=req.params.id;
-     const hotel= await propertyModel.getPropertyById(id);
-     const rooms= await roomModel.listRoomsWithAmentities(id);
-     const gallery= await roomModel.listRoomGallery(id);
-   
-     console.log(gallery);
+     const propertyId=req.params.id;
+     const hotel= await propertyModel.getPropertyById(propertyId);
+     const rooms= await roomModel.listRoomsWithAmentities(propertyId);
+     //list the rooms with amenities for this property
+     
      
 
-  res.render('Hotels/details', { hotel, rooms, gallery });
+  res.render('Hotels/details', { hotel, rooms });
 
   } catch (error) {
     console.log(error);
@@ -63,15 +63,82 @@ exports.getBookRoom=async (req,res) => {
   try {
     const roomId = req.params.roomId;
     const room = await roomModel.getRoomById(roomId);
+   
+    
+
     const hotel = await propertyModel.getPropertyById(room.property_id);
     const gallery=await roomModel.listRoomGallery(roomId);
-    const room_amenities=await roomModel.listRoomsWithAmentities(roomId);
+    const amenities=await roomModel.getRoomAmentities(roomId);
+    const roomDetails =await roomModel.getRoomDetails(roomId);
     const user= await userModel.getUserById(req.session.user.id);
-    res.render('Hotels/book-now', { room, hotel, gallery, room_amenities, user });
+    res.render('Hotels/book-now', { room, hotel, gallery, roomDetails, user,amenities });
 
-    console.log(room);
-    
+    console.log(hotel);
+
+
   } catch (error) {
     console.log(error);
   }
 }
+
+
+
+exports.bookRoom = async (req, res) => {
+  const userId = req.session.user.id;
+  const { hotelId, roomId } = req.params;
+  const {
+    numGuests,
+    requests,
+    payment_method,
+    credit_card_number,
+    paypal_email,
+    bank_account_number
+  } = req.body;
+
+  // Decide which payment account to store
+  let payment_account = null;
+  if (payment_method === 'Credit Card') payment_account = credit_card_number;
+  else if (payment_method === 'PayPal') payment_account = paypal_email;
+  else if (payment_method === 'Bank Transfer') payment_account = bank_account_number;
+
+  try {
+    const booking = await bookingModel.createBooking(
+      userId,
+      hotelId,
+      roomId,
+      numGuests,
+      requests,
+      payment_method,
+      payment_account
+    );
+
+    console.log(booking);
+    
+
+    res.redirect(`/Hotels/receipt/${booking.booking_id}`); // use returned booking ID
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error booking room');
+  }
+};
+
+
+exports.getReceipt = async (req, res) => {
+  const { bookingId } = req.params;
+
+  try {
+    const booking = await bookingModel.getBookingById(bookingId);
+    
+    
+
+    console.log(booking);
+    
+
+    if (!booking) return res.status(404).send('Booking not found');
+
+    res.render('Hotels/receipt', { booking });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error loading receipt');
+  }
+};

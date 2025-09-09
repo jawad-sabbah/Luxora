@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Receipt | Luxora</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold text-blue-600">Luxora</a>
+      <a href="/hotels" class="text-gray-600 hover:text-blue-600">← Back to Hotels</a>
+    </div>
+  </header>
+
+  <!-- Receipt Section -->
+  <main class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-10">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Booking Receipt</h1>
+
+    <!-- Success -->
+    <div class="mb-6 p-4 bg-green-100 text-green-800 rounded-lg">
+      ✅ Your booking has been successfully confirmed!
+    </div>
+
+    <!-- Booking Details -->
+    <div class="space-y-4 text-gray-700">
+      <p><span class="font-semibold">Hotel:</span> <%= booking.property_name %> </p>
+      <p><span class="font-semibold">Room:</span> <%= booking.room_type %></p>
+      <p><span class="font-semibold">Guests:</span> <%= booking.guest %></p>
+      
+      <p><span class="font-semibold">Payment Method:</span> <%= booking.payment_method %></p>
+     
+      <p>
+        <span class="font-semibold">Status:</span>
+        <% if (booking.status === "confirmed") { %>
+          <span class="text-green-600">Confirmed</span>
+        <% } else { %>
+          <span class="text-yellow-600">Pending</span>
+        <% } %>
+      </p>
+    </div>
+
+  
+  </main>
+
+</body>
+</html>

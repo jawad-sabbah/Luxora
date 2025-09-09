@@ -9,4 +9,7 @@ router.get('/:id',requireLogin,hotelsController.getHotelById);
 
 router.get('/:id/booking/:roomId', requireLogin, hotelsController.getBookRoom);
 
+router.get('/receipt/:bookingId', requireLogin, hotelsController.getReceipt);
+
+router.post('/:hotelId/booking/:roomId/confirm',requireLogin,hotelsController.bookRoom)
 module.exports=router;
