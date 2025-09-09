@@ -55,8 +55,8 @@
               <td class="px-4 py-2"><%= booking.name %></td>
               <td class="px-4 py-2"><%= booking.property_name %></td>
               <td class="px-4 py-2"><%= booking.type %></td>
-              <td class="px-4 py-2"><%= booking.check_in %></td>
-              <td class="px-4 py-2"><%= booking.check_out %></td>
+              <td class="px-4 py-2" id="checkIN"><%= booking.check_in %></td>
+              <td class="px-4 py-2" id="checkOUT"><%= booking.check_out %></td>
               <td class="px-4 py-2">
                 <% if (booking.status === 'confirmed') { %>
                   <span class="text-green-600 font-semibold">Confirmed</span>
@@ -81,4 +81,25 @@
   </main>
 
 </body>
+<script>
+  function formatDate(rawText) {
+    const dateObj = new Date(rawText);
+    if (isNaN(dateObj)) return rawText; // fallback if invalid
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return dateObj.toLocaleDateString('en-US', options);
+  }
+
+  const checkIN = document.querySelector('#checkIN');
+  const checkOUT = document.querySelector('#checkOUT');
+
+  if (checkIN) {
+    let rawIn = checkIN.textContent.replace("Check-in:", "").trim();
+    checkIN.innerHTML = `${formatDate(rawIn)}`;
+  }
+
+  if (checkOUT) {
+    let rawOut = checkOUT.textContent.replace("Check-out:", "").trim();
+    checkOUT.innerHTML = `${formatDate(rawOut)}`;
+  }
+</script>
 </html>
