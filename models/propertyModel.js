@@ -5,7 +5,7 @@ const db=require('../db');
 
 exports.getAllProperties=async()=>{
 
-  const query="SELECT * FROM properties join property_gallery on properties.property_id=property_gallery.property_id";
+  const query="SELECT * FROM properties join property_gallery on properties.property_id=property_gallery.property_id where properties.status='Available' ";
   const result=await db.query(query);
   return result.rows;
   
