@@ -19,16 +19,22 @@ exports.getAllHosts=async () => {
  
  const query = `
   SELECT DISTINCT ON (h.host_id)
-       h.host_id, h.user_id, u.name, u.email,
-       hr.request_id, hr.status, hr.phonenumber, hr.paypal, hr.bankaccount
-  FROM hosts h
-  JOIN users u ON h.user_id = u.user_id
-  JOIN host_requests hr ON h.user_id = hr.user_id
-  WHERE hr.status = $1
-  ORDER BY h.host_id, hr.request_id DESC
+       h.host_id,
+       u.name,
+       u.email,
+       hr.paypal ,
+       hr.bankaccount,
+       hr.phonenumber,
+       hr.status
+FROM hosts h
+JOIN users u ON h.user_id = u.user_id
+JOIN host_requests hr ON h.user_id = hr.user_id
+WHERE hr.status = 'approved'
+ORDER BY h.host_id, hr.request_id DESC;
+
 `;
 
-  const result = await db.query(query, ['approved']);
+  const result = await db.query(query);
   return result.rows;
 };  
 

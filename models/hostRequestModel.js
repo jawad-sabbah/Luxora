@@ -1,9 +1,10 @@
 const db=require('../db/index')
 
 
-exports.createRequest=async (userID,status,phoneNumber,paypal,bankAccount) => {
-  const query='insert into host_requests(user_id,status,phonenumber,paypal,bankaccount) values($1,$2,$3,$4,$5)'
-  const result=await db.query(query,[userID,status,phoneNumber,paypal,bankAccount])
+exports.createRequest=async (userId,status,phoneNumber,paypal,bankAccount) => {
+  const query='insert into host_requests(user_id,status,phonenumber,paypal,bankaccount) values($1,$2,$3,$4,$5) returning *'
+  const result=await db.query(query,[userId,status,phoneNumber,paypal,bankAccount])
+  return result.rows[0]
 }
 
 

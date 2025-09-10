@@ -212,19 +212,23 @@ exports.showHostRequests=async (req,res) => {
 
 exports.verifyHostRequest=async (req,res) => {
   
-  const hostId=req.params.id;
-  const userId=req.session.user.id;
+  const hostRequestId=req.params.id;
+
 
   try {
-    const result = await hostRequestModel.verifyHostRequest(hostId);
-    
-    
+    const result = await hostRequestModel.verifyHostRequest(hostRequestId);
+    const userId=result.user_id
+
+ 
+
+
     if (result) {
       const payout_email=result.paypal
       const bankAccount=result.bankaccount
       const phonenumber=result.phonenumber
       
       await hostModel.createHost(userId,payout_email,bankAccount,phonenumber);
+      
     }
 
     res.redirect('/admin/hosts');
